@@ -10,7 +10,9 @@ This is a fork of [jQuery bxSlider v3.1](https://github.com/psyrendust/bxslider)
 - **[Credits](#credits)**
 - **[License](#license)**
 
-# Options & API [(back to top)](#table-of-contents)
+# Options & API
+Original documentation provided by: [http://bxslider.com/options](http://bxslider.com/options).
+
 - **[General](#general)**
 - **[Auto](#auto)**
 - **[Pager](#pager)**
