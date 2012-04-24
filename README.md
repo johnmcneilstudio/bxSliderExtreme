@@ -4,7 +4,7 @@
 This is a fork of [jQuery bxSlider v3.1](https://github.com/psyrendust/bxslider) that adds an Infinite Width capability to the carousel.
 [jQuery bxSlider v3.1](https://github.com/psyrendust/bxslider) is a fork of the original [bxSlider v3.0](https://github.com/wandoledzep/bxslider) library by [Steven Wanderski](https://github.com/wandoledzep).
 
-# <a id="top"></a>Table of Contents
+# <a id="top">Table of Contents</a>
 - **[Options & API](#top)**
 - **[Release Notes](#releaseNotes)**
 - **[Credits](#credits)**
