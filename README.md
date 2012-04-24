@@ -158,7 +158,7 @@ In ms, the duration between each slide transition
 ```js
 default: 3000
 options: integer
-```js
+```
 
 **autoControls**  
 Display 'start' and 'stop' controls for auto show  
