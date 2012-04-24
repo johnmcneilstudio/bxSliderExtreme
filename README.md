@@ -4,24 +4,24 @@
 This is a fork of [jQuery bxSlider v3.1](https://github.com/psyrendust/bxslider) that adds an Infinite Width capability to the carousel.
 [jQuery bxSlider v3.1](https://github.com/psyrendust/bxslider) is a fork of the original [bxSlider v3.0](https://github.com/wandoledzep/bxslider) library by [Steven Wanderski](https://github.com/wandoledzep).
 
-# <a id="top">Table of Contents</a>
-- **[Options & API](#top)**
+# Table of Contents
+- **[Options & API](#table-of-contents)**
 - **[Release Notes](#releaseNotes)**
 - **[Credits](#credits)**
 - **[License](#license)**
 
-# Options & API [(back to top)](#top)
+# Options & API [(back to top)](#table-of-contents)
 - **[General](#general)**
 - **[Auto](#auto)**
 - **[Pager](#pager)**
-- **[Multiple display](#multiple)**
+- **[Multiple display](#multiple-display)**
 - **[Ticker](#ticker)**
-- **[Public functions](#public)**
+- **[Public functions](#public-functions)**
 - **[Callbacks](#callbacks)**
 
 ***
 
-## <a id="general"></a>GENERAL [(back to top)](#top)
+## GENERAL
 
 **mode**  
 Type of transition between each slide  
@@ -140,9 +140,11 @@ Used with [jquery.easing.1.3.js](http://gsgd.co.uk/sandbox/jquery/easing/) - see
 default: 'swing'
 ```
 
+[(back to top)](#table-of-contents)
+
 ***
 
-## <a id="auto"></a>AUTO [(back to top)](#top)
+## AUTO
 
 **auto**  
 Make slide transitions occur automatically  
@@ -228,9 +230,11 @@ default: true
 options: true, false
 ```
 
+[(back to top)](#table-of-contents)
+
 ***
 
-## <a id="pager"></a>PAGER [(back to top)](#top)
+## PAGER
 
 **pager**  
 Display a numeric pager  
@@ -274,9 +278,11 @@ default: 'pager-active'
 options: string
 ```
 
+[(back to top)](#table-of-contents)
+
 ***
 
-## <a id="multiple"></a>MULTIPLE DISPLAY [(back to top)](#top)
+## MULTIPLE DISPLAY
 
 **displaySlideQty**  
 Number of slides to display at once  
@@ -292,9 +298,11 @@ default: 1
 options: integer
 ```
 
+[(back to top)](#table-of-contents)
+
 ***
 
-## <a id="ticker"></a>TICKER [(back to top)](#top)
+## TICKER
 
 **ticker**  
 Continuous motion ticker mode (similar to a news ticker)  
@@ -324,9 +332,11 @@ default: false
 options: true, false
 ```
 
+[(back to top)](#table-of-contents)
+
 ***
 
-## <a id="callbacks"></a>CALLBACKS [(back to top)](#top)
+## CALLBACKS
 
 **onBeforeSlide**  
 Performs provided function before every slide transition  
@@ -384,9 +394,11 @@ function(slideIndex, slideHtmlObject){
 }
 ```
 
+[(back to top)](#table-of-contents)
+
 ***
 
-## <a id="public"></a>PUBLIC FUNCTIONS [(back to top)](#top)
+## PUBLIC FUNCTIONS
 
 **goToSlide(slideIndex)**  
 Got to the specified slide. Note: slide indices are zero based
@@ -427,9 +439,11 @@ Destroys the active slideshow
 **reloadShow()**  
 Reinitialize a slide show
 
+[(back to top)](#table-of-contents)
+
 ***
 
-# <a id="releaseNotes"></a>Release Notes [(back to top)](#top)
+# Release Notes
 ### 3.1.1 (4/23/2012):
 - Forked from [jQuery bxSlider v3.1](https://github.com/psyrendust/bxslider).
 - foo
@@ -440,13 +454,18 @@ Reinitialize a slide show
 ### v3.0:
 - Forked from [bxSlider v3.0](https://github.com/wandoledzep/bxslider).
 
-# <a id="credits"></a>Credits [(back to top)](#top)
+[(back to top)](#table-of-contents)
+
+# Credits
 Copyright 2011, Steven Wanderski  
 [http://bxcreative.com](http://bxcreative.com)
 
 Edited by Larry Gordon  
 [http://blog.psyrendust.com](http://blog.psyrendust.com)
 
-# <a id="license"></a>License [(back to top)](#top)
+[(back to top)](#table-of-contents)
+
+# License
 Free to use and abuse under the MIT license.  
-[http://www.opensource.org/licenses/mit-license.php](http://www.opensource.org/licenses/mit-license.php)
+[http://www.opensource.org/licenses/mit-license.php](http://www.opensource.org/licenses/mit-license.php)  
+[(back to top)](#table-of-contents)
