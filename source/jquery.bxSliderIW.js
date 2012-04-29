@@ -1,90 +1,94 @@
-/**
- * jQuery bxSlider v3.1
- * http://bxslider.com
+/*!
+ * jQuery bxSliderIW v3.1.1
+ * https://github.com/psyrendust/bxsliderIW
+ * Copyright 2012, Larry Gordon
  *
+ * bxSliderIW is a fork of jQuery bxSlider
  * Copyright 2011, Steven Wanderski
  * http://bxcreative.com
  *
- * Edited by Larry Gordon
- * http://blog.psyrendust.com
- *
  * Free to use and abuse under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
- * 
+ *
  */
 
 
 (function($){
-	
-	$.fn.bxSlider = function(options){		
-				
+
+	$.fn.bxSlider = function(options){
+
 		var defaults = {
-			mode: 'horizontal',									// 'horizontal', 'vertical', 'fade'
-			infiniteLoop: true,									// true, false - display first slide after last
-			hideControlOnEnd: false,						// true, false - if true, will hide 'next' control on last slide and 'prev' control on first
-			controls: true,											// true, false - previous and next controls
-			speed: 500,													// integer - in ms, duration of time slide transitions will occupy
-			easing: 'swing',                    // used with jquery.easing.1.3.js - see http://gsgd.co.uk/sandbox/jquery/easing/ for available options
-			pager: false,												// true / false - display a pager
-			pagerSelector: null,								// jQuery selector - element to contain the pager. ex: '#pager'
-			pagerType: 'full',									// 'full', 'short' - if 'full' pager displays 1,2,3... if 'short' pager displays 1 / 4
-			pagerLocation: 'bottom',						// 'bottom', 'top' - location of pager
-			pagerShortSeparator: '/',						// string - ex: 'of' pager would display 1 of 4
-			pagerActiveClass: 'pager-active',		// string - classname attached to the active pager link
-			nextText: 'next',										// string - text displayed for 'next' control
-			nextImage: '',											// string - filepath of image used for 'next' control. ex: 'images/next.jpg'
-			nextSelector: null,									// jQuery selector - element to contain the next control. ex: '#next'
-			prevText: 'prev',										// string - text displayed for 'previous' control
-			prevImage: '',											// string - filepath of image used for 'previous' control. ex: 'images/prev.jpg'
-			prevSelector: null,									// jQuery selector - element to contain the previous control. ex: '#next'
-			captions: false,										// true, false - display image captions (reads the image 'title' tag)
-			captionsSelector: null,							// jQuery selector - element to contain the captions. ex: '#captions'
-			auto: false,												// true, false - make slideshow change automatically
-			autoDirection: 'next',							// 'next', 'prev' - direction in which auto show will traverse
-			autoControls: false,								// true, false - show 'start' and 'stop' controls for auto show
-			autoControlsSelector: null,					// jQuery selector - element to contain the auto controls. ex: '#auto-controls'
-			autoStart: true,										// true, false - if false show will wait for 'start' control to activate
-			autoHover: false,										// true, false - if true show will pause on mouseover
-			autoDelay: 0,                       // integer - in ms, the amount of time before starting the auto show
-			pause: 3000,												// integer - in ms, the duration between each slide transition
-			startText: 'start',									// string - text displayed for 'start' control
-			startImage: '',											// string - filepath of image used for 'start' control. ex: 'images/start.jpg'
-			stopText: 'stop',										// string - text displayed for 'stop' control
-			stopImage: '',											// string - filepath of image used for 'stop' control. ex: 'images/stop.jpg'
-			ticker: false,											// true, false - continuous motion ticker mode (think news ticker)
-																					// note: autoControls, autoControlsSelector, and autoHover apply to ticker!
-			tickerSpeed: 5000,								  // float - use value between 1 and 5000 to determine ticker speed - the smaller the value the faster the ticker speed
-			tickerDirection: 'next',						// 'next', 'prev' - direction in which ticker show will traverse
-			tickerHover: false,                 // true, false - if true ticker will pause on mouseover
-			wrapperClass: 'bx-wrapper',					// string - classname attached to the slider wraper
-			startingSlide: 0, 									// integer - show will start on specified slide. note: slides are zero based!
-			displaySlideQty: 1,									// integer - number of slides to display at once
-			moveSlideQty: 1,										// integer - number of slides to move at once
-			randomStart: false,									// true, false - if true show will start on a random slide
-			onBeforeSlide: function(){},				// function(currentSlideNumber, totalSlideQty, currentSlideHtmlObject) - advanced use only! see the tutorial here: http://bxslider.com/custom-pager
-			onAfterSlide: function(){},					// function(currentSlideNumber, totalSlideQty, currentSlideHtmlObject) - advanced use only! see the tutorial here: http://bxslider.com/custom-pager
-			onLastSlide: function(){},					// function(currentSlideNumber, totalSlideQty, currentSlideHtmlObject) - advanced use only! see the tutorial here: http://bxslider.com/custom-pager
-			onFirstSlide: function(){},					// function(currentSlideNumber, totalSlideQty, currentSlideHtmlObject) - advanced use only! see the tutorial here: http://bxslider.com/custom-pager
-			onNextSlide: function(){},					// function(currentSlideNumber, totalSlideQty, currentSlideHtmlObject) - advanced use only! see the tutorial here: http://bxslider.com/custom-pager
-			onPrevSlide: function(){},					// function(currentSlideNumber, totalSlideQty, currentSlideHtmlObject) - advanced use only! see the tutorial here: http://bxslider.com/custom-pager
-			buildPager: null										// function(slideIndex, slideHtmlObject){ return string; } - advanced use only! see the tutorial here: http://bxslider.com/custom-pager
-		}
-		
-		var options = $.extend(defaults, options);
-		
+			mode: 'horizontal',					// 'horizontal', 'vertical', 'fade'
+			infiniteLoop: true,					// true, false - display first slide after last
+			hideControlOnEnd: false,			// true, false - if true, will hide 'next' control on last slide and 'prev' control on first
+			controls: true,						// true, false - previous and next controls
+			speed: 500,							// integer - in ms, duration of time slide transitions will occupy
+			easing: 'swing',					// used with jquery.easing.1.3.js - see http://gsgd.co.uk/sandbox/jquery/easing/ for available options
+			pager: false,						// true / false - display a pager
+			pagerSelector: null,				// jQuery selector - element to contain the pager. ex: '#pager'
+			pagerType: 'full',					// 'full', 'short' - if 'full' pager displays 1,2,3... if 'short' pager displays 1 / 4
+			pagerLocation: 'bottom',			// 'bottom', 'top' - location of pager
+			pagerShortSeparator: '/',			// string - ex: 'of' pager would display 1 of 4
+			pagerActiveClass: 'pager-active',	// string - classname attached to the active pager link
+			nextText: 'next',					// string - text displayed for 'next' control
+			nextImage: '',						// string - filepath of image used for 'next' control. ex: 'images/next.jpg'
+			nextSelector: null,					// jQuery selector - element to contain the next control. ex: '#next'
+			prevText: 'prev',					// string - text displayed for 'previous' control
+			prevImage: '',						// string - filepath of image used for 'previous' control. ex: 'images/prev.jpg'
+			prevSelector: null,					// jQuery selector - element to contain the previous control. ex: '#next'
+			captions: false,					// true, false - display image captions (reads the image 'title' tag)
+			captionsSelector: null,				// jQuery selector - element to contain the captions. ex: '#captions'
+			auto: false,						// true, false - make slideshow change automatically
+			autoDirection: 'next',				// 'next', 'prev' - direction in which auto show will traverse
+			autoControls: false,				// true, false - show 'start' and 'stop' controls for auto show
+			autoControlsSelector: null,			// jQuery selector - element to contain the auto controls. ex: '#auto-controls'
+			autoStart: true,					// true, false - if false show will wait for 'start' control to activate
+			autoHover: false,					// true, false - if true show will pause on mouseover
+			autoDelay: 0,						// integer - in ms, the amount of time before starting the auto show
+			pause: 3000,						// integer - in ms, the duration between each slide transition
+			startText: 'start',					// string - text displayed for 'start' control
+			startImage: '',						// string - filepath of image used for 'start' control. ex: 'images/start.jpg'
+			stopText: 'stop',					// string - text displayed for 'stop' control
+			stopImage: '',						// string - filepath of image used for 'stop' control. ex: 'images/stop.jpg'
+			ticker: false,						// true, false - continuous motion ticker mode (think news ticker)
+												// note: autoControls, autoControlsSelector, and autoHover apply to ticker!
+			tickerSpeed: 5000,					// float - use value between 1 and 5000 to determine ticker speed - the smaller the value the faster the ticker speed
+			tickerDirection: 'next',			// 'next', 'prev' - direction in which ticker show will traverse
+			tickerHover: false,					// true, false - if true ticker will pause on mouseover
+			wrapperClass: 'bx-wrapper',			// string - classname attached to the slider wraper
+			startingSlide: 0,					// integer - show will start on specified slide. note: slides are zero based!
+			displaySlideQty: 1,					// integer - number of slides to display at once
+			moveSlideQty: 1,					// integer - number of slides to move at once
+			randomStart: false,					// true, false - if true show will start on a random slide
+			onBeforeSlide: function(){},		// function(currentSlideNumber, totalSlideQty, currentSlideHtmlObject) - advanced use only! see the tutorial here: http://bxslider.com/custom-pager
+			onAfterSlide: function(){},			// function(currentSlideNumber, totalSlideQty, currentSlideHtmlObject) - advanced use only! see the tutorial here: http://bxslider.com/custom-pager
+			onLastSlide: function(){},			// function(currentSlideNumber, totalSlideQty, currentSlideHtmlObject) - advanced use only! see the tutorial here: http://bxslider.com/custom-pager
+			onFirstSlide: function(){},			// function(currentSlideNumber, totalSlideQty, currentSlideHtmlObject) - advanced use only! see the tutorial here: http://bxslider.com/custom-pager
+			onNextSlide: function(){},			// function(currentSlideNumber, totalSlideQty, currentSlideHtmlObject) - advanced use only! see the tutorial here: http://bxslider.com/custom-pager
+			onPrevSlide: function(){},			// function(currentSlideNumber, totalSlideQty, currentSlideHtmlObject) - advanced use only! see the tutorial here: http://bxslider.com/custom-pager
+			buildPager: null,					// function(slideIndex, slideHtmlObject){ return string; } - advanced use only! see the tutorial here: http://bxslider.com/custom-pager
+			infiniteWidth: false,				// true, false - if true make the carousel infinite width
+			resizeItems: [],					// array - an array of jQuery objects that need to be resized for infinite width
+			minWidth: 960						// integer - the minimum width of the carousel
+		};
+
+		options = $.extend(defaults, options);
+
 		// cache the base element
 		var base = this;
 		// initialize (and localize) all variables
 		var $parent = '';
 		var $origElement = '';
 		var $children = '';
+		var $allChildren = '';
 		var $outerWrapper = '';
 		var $firstChild = '';
 		var childrenWidth = '';
 		var childrenOuterWidth = '';
 		var wrapperWidth = '';
 		var wrapperHeight = '';
-		var $pager = '';	
+		var $pager = '';
+		var $window = '';
 		var interval = '';
 		var $autoControls = '';
 		var $stopHtml = '';
@@ -94,7 +98,7 @@
 		var loaded = false;
 		var childrenMaxWidth = 0;
 		var childrenMaxHeight = 0;
-		var currentSlide = 0;	
+		var currentSlide = 0;
 		var origLeft = 0;
 		var origTop = 0;
 		var origShowWidth = 0;
@@ -102,16 +106,16 @@
 		var tickerLeft = 0;
 		var tickerTop = 0;
 		var isWorking = false;
-    
+
 		var firstSlide = 0;
 		var lastSlide = $children.length - 1;
-		
-						
+
+
 		// PUBLIC FUNCTIONS
-						
+
 		/**
 		 * Go to specified slide
-		 */		
+		 */
 		this.goToSlide = function(number, stopAuto){
 			if(!isWorking){
 				isWorking = true;
@@ -120,14 +124,14 @@
 				options.onBeforeSlide(currentSlide, $children.length, $children.eq(currentSlide));
 				// check if stopAuto argument is supplied
 				if(typeof(stopAuto) == 'undefined'){
-					var stopAuto = true;
+					stopAuto = true;
 				}
 				if(stopAuto){
 					// if show is auto playing, stop it
 					if(options.auto){
 						base.stopShow(true);
 					}
-				}			
+				}
 				slide = number;
 				// check for first slide callback
 				if(slide == firstSlide){
@@ -150,8 +154,8 @@
 						isWorking = false;
 						// perform the callback function
 						options.onAfterSlide(currentSlide, $children.length, $children.eq(currentSlide));
-					});			
-				// fade	
+					});
+				// fade
 				}else if(options.mode == 'fade'){
 					setChildrenFade();
 				}
@@ -166,26 +170,26 @@
 				// display the caption
 				showCaptions();
 			}
-		}
-		
+		};
+
 		/**
 		 * Go to next slide
-		 */		
+		 */
 		this.goToNextSlide = function(stopAuto){
 			// check if stopAuto argument is supplied
 			if(typeof(stopAuto) == 'undefined'){
-				var stopAuto = true;
+				stopAuto = true;
 			}
 			if(stopAuto){
 				// if show is auto playing, stop it
 				if(options.auto){
 					base.stopShow(true);
 				}
-			}			
+			}
 			// makes slideshow finite
+			var slideLoop = false;
 			if(!options.infiniteLoop){
 				if(!isWorking){
-					var slideLoop = false;
 					// make current slide the old value plus moveSlideQty
 					currentSlide = (currentSlide + (options.moveSlideQty));
 					// if current slide has looped on itself
@@ -194,15 +198,14 @@
 						// next slide callback
 						options.onNextSlide(currentSlide, $children.length, $children.eq(currentSlide));
 						// move to appropriate slide
-						base.goToSlide(currentSlide);						
+						base.goToSlide(currentSlide);
 					}else{
 						currentSlide -= options.moveSlideQty;
 					}
-				} // end if(!isWorking)		
-			}else{ 
+				} // end if(!isWorking)
+			}else{
 				if(!isWorking){
-					isWorking = true;					
-					var slideLoop = false;
+					isWorking = true;
 					// make current slide the old value plus moveSlideQty
 					currentSlide = (currentSlide + options.moveSlideQty);
 					// if current slide has looped on itself
@@ -214,7 +217,7 @@
 					options.onNextSlide(currentSlide, $children.length, $children.eq(currentSlide));
 					// slide before callback
 					options.onBeforeSlide(currentSlide, $children.length, $children.eq(currentSlide));
-					if(options.mode == 'horizontal'){						
+					if(options.mode == 'horizontal'){
 						// get the new 'left' property for $parent
 						var parentLeft = (options.moveSlideQty * childrenOuterWidth);
 						// animate to the new 'left'
@@ -242,7 +245,7 @@
 						});
 					}else if(options.mode == 'fade'){
 						setChildrenFade();
-					}					
+					}
 					// make the current slide active
 					if(options.moveSlideQty > 1){
 						makeSlideActive(Math.ceil(currentSlide / options.moveSlideQty));
@@ -252,28 +255,28 @@
 					// display the caption
 					showCaptions();
 				} // end if(!isWorking)
-				
-			}	
-		} // end function
-		
+
+			}
+		};
+
 		/**
 		 * Go to previous slide
-		 */		
+		 */
 		this.goToPreviousSlide = function(stopAuto){
 			// check if stopAuto argument is supplied
 			if(typeof(stopAuto) == 'undefined'){
-				var stopAuto = true;
+				stopAuto = true;
 			}
 			if(stopAuto){
 				// if show is auto playing, stop it
 				if(options.auto){
 					base.stopShow(true);
 				}
-			}			
+			}
 			// makes slideshow finite
-			if(!options.infiniteLoop){	
+			var slideLoop = false;
+			if(!options.infiniteLoop){
 				if(!isWorking){
-					var slideLoop = false;
 					// make current slide the old value plus moveSlideQty
 					currentSlide = currentSlide - options.moveSlideQty;
 					// if current slide has looped on itself
@@ -289,20 +292,19 @@
 					options.onPrevSlide(currentSlide, $children.length, $children.eq(currentSlide));
 					// move to appropriate slide
 					base.goToSlide(currentSlide);
-				}							
+				}
 			}else{
 				if(!isWorking){
-					isWorking = true;			
-					var slideLoop = false;
+					isWorking = true;
 					// make current slide the old value plus moveSlideQty
 					currentSlide = (currentSlide - (options.moveSlideQty));
 					// if current slide has looped on itself
 					if(currentSlide < 0){
 						negativeOffset = (currentSlide % $children.length);
-						if(negativeOffset == 0){
+						if(negativeOffset === 0){
 							currentSlide = 0;
 						}else{
-							currentSlide = ($children.length) + negativeOffset; 
+							currentSlide = ($children.length) + negativeOffset;
 						}
 						slideLoop = true;
 					}
@@ -338,7 +340,7 @@
 						});
 					}else if(options.mode == 'fade'){
 						setChildrenFade();
-					}					
+					}
 					// make the current slide active
 					if(options.moveSlideQty > 1){
 						makeSlideActive(Math.ceil(currentSlide / options.moveSlideQty));
@@ -347,146 +349,148 @@
 					}
 					// display the caption
 					showCaptions();
-				} // end if(!isWorking)				
+				} // end if(!isWorking)
 			}
-		} // end function
-		
+		};
+
 		/**
 		 * Go to first slide
-		 */		
+		 */
 		this.goToFirstSlide = function(stopAuto){
 			// check if stopAuto argument is supplied
 			if(typeof(stopAuto) == 'undefined'){
-				var stopAuto = true;
+				stopAuto = true;
 			}
 			base.goToSlide(firstSlide, stopAuto);
-		}
-		
+		};
+
 		/**
 		 * Go to last slide
-		 */		
-		this.goToLastSlide = function(){
+		 */
+		this.goToLastSlide = function(stopAuto){
 			// check if stopAuto argument is supplied
 			if(typeof(stopAuto) == 'undefined'){
-				var stopAuto = true;
+				stopAuto = true;
 			}
 			base.goToSlide(lastSlide, stopAuto);
-		}
-		
+		};
+
 		/**
 		 * Get the current slide
-		 */		
+		 */
 		this.getCurrentSlide = function(){
 			return currentSlide;
-		}
-		
+		};
+
 		/**
 		 * Get the total slide count
-		 */		
+		 */
 		this.getSlideCount = function(){
 			return $children.length;
-		}
-		
+		};
+
 		/**
 		 * Stop the slideshow
-		 */		
+		 */
 		this.stopShow = function(changeText){
 			clearInterval(interval);
 			// check if changeText argument is supplied
 			if(typeof(changeText) == 'undefined'){
-				var changeText = true;
+				changeText = true;
 			}
 			if(changeText && options.autoControls){
 				$autoControls.html($startContent).removeClass('stop').addClass('start');
 				autoPlaying = false;
 			}
-		}
-		
+		};
+
 		/**
 		 * Start the slideshow
-		 */		
+		 */
 		this.startShow = function(changeText){
 			// check if changeText argument is supplied
 			if(typeof(changeText) == 'undefined'){
-				var changeText = true;
+				changeText = true;
 			}
 			setAutoInterval();
 			if(changeText && options.autoControls){
 				$autoControls.html($stopContent).removeClass('start').addClass('stop');
 				autoPlaying = true;
 			}
-		}
-		
+		};
+
 		/**
 		 * Stops the ticker
-		 */		
+		 */
 		this.stopTicker = function(changeText){
 			$parent.stop();
 			// check if changeText argument is supplied
 			if(typeof(changeText) == 'undefined'){
-				var changeText = true;
+				changeText = true;
 			}
 			if(changeText && options.ticker){
 				$autoControls.html($startContent).removeClass('stop').addClass('start');
 				autoPlaying = false;
-			}			
-		}
-		
+			}
+		};
+
 		/**
 		 * Starts the ticker
-		 */		
+		 */
 		this.startTicker = function(changeText){
+			var stoppedLeft, stoppedTop, remainingDistance, finishingSpeed;
 			if(options.mode == 'horizontal'){
 				if(options.tickerDirection == 'next'){
 					// get the 'left' property where the ticker stopped
-					var stoppedLeft = parseInt($parent.css('left'));
+					stoppedLeft = parseInt($parent.css('left'), 10);
 					// calculate the remaining distance the show must travel until the loop
-					var remainingDistance = (origShowWidth + stoppedLeft) + $children.eq(0).width();			
+					remainingDistance = (origShowWidth + stoppedLeft) + $children.eq(0).width();
 				}else if(options.tickerDirection == 'prev'){
 					// get the 'left' property where the ticker stopped
-					var stoppedLeft = -parseInt($parent.css('left'));
+					stoppedLeft = -parseInt($parent.css('left'), 10);
 					// calculate the remaining distance the show must travel until the loop
-					var remainingDistance = (stoppedLeft) - $children.eq(0).width();
+					remainingDistance = (stoppedLeft) - $children.eq(0).width();
 				}
 				// calculate the speed ratio to seamlessly finish the loop
-				var finishingSpeed = (remainingDistance * options.tickerSpeed) / origShowWidth;
+				finishingSpeed = (remainingDistance * options.tickerSpeed) / origShowWidth;
 				// call the show
-				moveTheShow(tickerLeft, remainingDistance, finishingSpeed);					
+				moveTheShow(tickerLeft, remainingDistance, finishingSpeed);
 			}else if(options.mode == 'vertical'){
 				if(options.tickerDirection == 'next'){
 					// get the 'top' property where the ticker stopped
-					var stoppedTop = parseInt($parent.css('top'));
+					stoppedTop = parseInt($parent.css('top'), 10);
 					// calculate the remaining distance the show must travel until the loop
-					var remainingDistance = (origShowHeight + stoppedTop) + $children.eq(0).height();			
+					remainingDistance = (origShowHeight + stoppedTop) + $children.eq(0).height();
 				}else if(options.tickerDirection == 'prev'){
 					// get the 'left' property where the ticker stopped
-					var stoppedTop = -parseInt($parent.css('top'));
+					stoppedTop = -parseInt($parent.css('top'), 10);
 					// calculate the remaining distance the show must travel until the loop
-					var remainingDistance = (stoppedTop) - $children.eq(0).height();
+					remainingDistance = (stoppedTop) - $children.eq(0).height();
 				}
 				// calculate the speed ratio to seamlessly finish the loop
-				var finishingSpeed = (remainingDistance * options.tickerSpeed) / origShowHeight;
+				finishingSpeed = (remainingDistance * options.tickerSpeed) / origShowHeight;
 				// call the show
 				moveTheShow(tickerTop, remainingDistance, finishingSpeed);
 				// check if changeText argument is supplied
 				if(typeof(changeText) == 'undefined'){
-					var changeText = true;
+					changeText = true;
 				}
 				if(changeText && options.ticker){
 					$autoControls.html($stopContent).removeClass('start').addClass('stop');
 					autoPlaying = true;
-				}						
+				}
 			}
-		}
-				
+		};
+
 		/**
 		 * Initialize a new slideshow
-		 */		
+		 */
 		this.initShow = function(){
-			
+
 			// reinitialize all variables
 			// base = this;
 			$parent = $(this);
+			$parent.css('opacity', 0);
 			$origElement = $parent.clone();
 			$children = $parent.children();
 			$outerWrapper = '';
@@ -498,8 +502,9 @@
 			wrapperWidth = getWrapperWidth();
 			wrapperHeight = getWrapperHeight();
 			isWorking = false;
-			$pager = '';	
-			currentSlide = 0;	
+			$pager = '';
+			$window = '';
+			currentSlide = 0;
 			origLeft = 0;
 			origTop = 0;
 			interval = '';
@@ -513,10 +518,10 @@
 			origShowHeight = 0;
 			tickerLeft = 0;
 			tickerTop = 0;
-      
+
 			firstSlide = 0;
 			lastSlide = $children.length - 1;
-						
+
 			// get the largest child's height and width
 			$children.each(function(index) {
 			  if($(this).outerHeight() > childrenMaxHeight){
@@ -539,10 +544,12 @@
 				origLeft = childrenOuterWidth * (options.moveSlideQty + options.startingSlide);
 				origTop = childrenMaxHeight * (options.moveSlideQty + options.startingSlide);
 			}
-						
+
 			// set initial css
 			initCss();
 			
+			$allChildren = $parent.children();
+
 			// check to show pager
 			if(options.pager && !options.ticker){
 				if(options.pagerType == 'full'){
@@ -551,12 +558,12 @@
 					showPager('short');
 				}
 			}
-						
+
 			// check to show controls
 			if(options.controls && !options.ticker){
 				setControlsVars();
 			}
-						
+
 			// check if auto
 			if(options.auto || options.ticker){
 				// check if auto controls are displayed
@@ -576,12 +583,12 @@
 				if(options.autoHover && !options.ticker){
 					setAutoHover();
 				}
-			}						
+			}
 			// make the starting slide active
 			if(options.moveSlideQty > 1){
 				makeSlideActive(Math.ceil(currentSlide / options.moveSlideQty));
-			}else{			
-				makeSlideActive(currentSlide);			
+			}else{
+				makeSlideActive(currentSlide);
 			}
 			// check for finite show and if controls should be hidden
 			checkEndControls();
@@ -589,14 +596,27 @@
 			if(options.captions){
 				showCaptions();
 			}
+
+			// check for infiniteWidth
+			if(options.infiniteWidth){
+				// Requires jquery.debouncedresize.js.
+				if(!$.event.special.debouncedresize){
+					throw "Requires jquery.debouncedresize.js. Get it here: https://github.com/louisremi/jquery-smartresize";
+				}
+				$(window).on('debouncedresize', function(event){
+					updateWidth();
+				});
+				updateWidth(0);
+			}
+			$parent.css('opacity', 1);
 			// perform the callback function
 			options.onAfterSlide(currentSlide, $children.length, $children.eq(currentSlide));
-		}
-		
+		};
+
 		/**
 		 * Destroy the current slideshow
-		 */		
-		this.destroyShow = function(){			
+		 */
+		this.destroyShow = function(){
 			// stop the auto show
 			clearInterval(interval);
 			// remove any controls / pagers that have been appended
@@ -607,22 +627,47 @@
 			$parent.children().removeAttr('style').not('.pager').remove();
 			// remove any childrent that were appended
 			$children.removeClass('pager');
-			
-		}
-		
+
+		};
+
 		/**
 		 * Reload the current slideshow
-		 */		
+		 */
 		this.reloadShow = function(){
 			base.destroyShow();
 			base.initShow();
-		}
-		
+		};
+
 		// PRIVATE FUNCTIONS
-		
+
+		/**
+		 * Infinite Width helper function
+		 */
+		function updateWidth(speedOverride){
+			var windowWidth = $(window).width();
+			var maskWidth = options.minWidth;
+			var maskLeft = 0;
+			var itemWidth = 1600;
+			var speed = (speedOverride===0)?speedOverride:600
+			if(windowWidth > maskWidth){
+				maskWidth = windowWidth;
+				maskLeft = -(windowWidth*(base.getCurrentSlide()+1));
+			}else{
+				maskLeft = -(maskWidth*(base.getCurrentSlide()+1));
+			}
+			if(windowWidth > itemWidth) {
+				itemWidth = windowWidth;
+			}
+			$outerWrapper.animate({width:maskWidth}, speed, 'easeOutQuint');
+			$pager.animate({width:maskWidth}, speed, 'easeOutQuint');
+			$window.animate({width:maskWidth}, speed, 'easeOutQuint');
+			$parent.animate({left:maskLeft}, speed, 'easeOutQuint');
+			$allChildren.animate({width:maskWidth}, speed, 'easeOutQuint');
+		}
+
 		/**
 		 * Creates all neccessary styling for the slideshow
-		 */		
+		 */
 		function initCss(){
 			// layout the children
 			setChildrenLayout(options.startingSlide);
@@ -641,7 +686,7 @@
 					width: childrenWidth,
 				  'float': 'left',
 				  listStyle: 'none'
-				});					
+				});
 				$outerWrapper = $parent.parent().parent();
 				$children.addClass('pager');
 			// CSS for vertical mode
@@ -658,7 +703,7 @@
 				$parent.children().css({
 				  listStyle: 'none',
 					height: childrenMaxHeight
-				});					
+				});
 				$outerWrapper = $parent.parent().parent();
 				$children.addClass('pager');
 			// CSS for fade mode
@@ -673,32 +718,33 @@
 					top: 0,
 					left: 0,
 					zIndex: 98
-				});					
+				});
 				$outerWrapper = $parent.parent().parent();
 				$children.not(':eq('+currentSlide+')').fadeTo(0, 0);
 				$children.eq(currentSlide).css('zIndex', 99);
 			}
 			// if captions = true setup a div placeholder
-			if(options.captions && options.captionsSelector == null){
+			if(options.captions && options.captionsSelector === null){
 				$outerWrapper.append('<div class="bx-captions"></div>');
-			}			
+			}
+			$window = $outerWrapper.find('.bx-window');
 		}
-		
+
 		/**
 		 * Depending on mode, lays out children in the proper setup
-		 */		
-		function setChildrenLayout(){			
+		 */
+		function setChildrenLayout(){
 			// lays out children for horizontal or vertical modes
 			if(options.mode == 'horizontal' || options.mode == 'vertical'){
-								
+
 				// get the children behind
 				var $prependedChildren = getArraySample($children, 0, options.moveSlideQty, 'backward');
-				
+
 				// add each prepended child to the back of the original element
 				$.each($prependedChildren, function(index) {
 					$parent.prepend($(this));
-				});			
-				
+				});
+
 				// total number of slides to be hidden after the window
 				var totalNumberAfterWindow = ($children.length + options.moveSlideQty) - 1;
 				// number of original slides hidden after the window
@@ -707,7 +753,7 @@
 				var numberToAppend = totalNumberAfterWindow - pagerExcess;
 				// get the sample of extra slides to append
 				var $appendedChildren = getArraySample($children, 0, numberToAppend, 'forward');
-				
+
 				if(options.infiniteLoop){
 					// add each appended child to the front of the original element
 					$.each($appendedChildren, function(index) {
@@ -716,14 +762,14 @@
 				}
 			}
 		}
-		
+
 		/**
 		 * Sets all variables associated with the controls
-		 */		
+		 */
 		function setControlsVars(){
 			// check if text or images should be used for controls
 			// check "next"
-			if(options.nextImage != ''){
+			if(options.nextImage !== ''){
 				nextContent = options.nextImage;
 				nextType = 'image';
 			}else{
@@ -731,7 +777,7 @@
 				nextType = 'text';
 			}
 			// check "prev"
-			if(options.prevImage != ''){
+			if(options.prevImage !== ''){
 				prevContent = options.prevImage;
 				prevType = 'image';
 			}else{
@@ -740,15 +786,15 @@
 			}
 			// show the controls
 			showControls(nextType, nextContent, prevType, prevContent);
-		}			
-		
+		}
+
 		/**
 		 * Puts slideshow into auto mode
 		 *
-		 * @param int pause number of ms the slideshow will wait between slides 
+		 * @param int pause number of ms the slideshow will wait between slides
 		 * @param string direction 'forward', 'backward' sets the direction of the slideshow (forward/backward)
 		 * @param bool controls determines if start/stop controls will be displayed
-		 */		
+		 */
 		function setAutoInterval(){
 			if(options.auto){
 				// finite loop
@@ -768,10 +814,10 @@
 							// if currentSlide is smaller than zero
 							if(currentSlide < 0){
 								negativeOffset = (currentSlide % $children.length);
-								if(negativeOffset == 0){
+								if(negativeOffset === 0){
 									currentSlide = 0;
 								}else{
-									currentSlide = ($children.length) + negativeOffset; 
+									currentSlide = ($children.length) + negativeOffset;
 								}
 							}
 							base.goToSlide(currentSlide, false);
@@ -789,43 +835,43 @@
 						}, options.pause);
 					}
 				}
-			
+
 			}else if(options.ticker){
-				
+
 				options.tickerSpeed *= 10;
-												
+
 				// get the total width of the original show
 				$('.pager', $outerWrapper).each(function(index) {
 				  origShowWidth += $(this).width();
 					origShowHeight += $(this).height();
 				});
-				
+
 				// if prev start the show from the last slide
 				if(options.tickerDirection == 'prev' && options.mode == 'horizontal'){
 					$parent.css('left', '-'+(origShowWidth+origLeft)+'px');
 				}else if(options.tickerDirection == 'prev' && options.mode == 'vertical'){
 					$parent.css('top', '-'+(origShowHeight+origTop)+'px');
 				}
-				
+
 				if(options.mode == 'horizontal'){
 					// get the starting left position
-					tickerLeft = parseInt($parent.css('left'));
+					tickerLeft = parseInt($parent.css('left'), 10);
 					// start the ticker
 					moveTheShow(tickerLeft, origShowWidth, options.tickerSpeed);
 				}else if(options.mode == 'vertical'){
 					// get the starting top position
-					tickerTop = parseInt($parent.css('top'));
+					tickerTop = parseInt($parent.css('top'), 10);
 					// start the ticker
 					moveTheShow(tickerTop, origShowHeight, options.tickerSpeed);
-				}												
-				
+				}
+
 				// check it tickerHover applies
 				if(options.tickerHover){
 					setTickerHover();
-				}					
-			}			
+				}
+			}
 		}
-		
+
 		function moveTheShow(leftCss, distance, speed){
 			// if horizontal
 			if(options.mode == 'horizontal'){
@@ -842,7 +888,7 @@
 						moveTheShow(leftCss, origShowWidth, options.tickerSpeed);
 					});
 				}
-			// if vertical		
+			// if vertical
 			}else if(options.mode == 'vertical'){
 				// if next
 				if(options.tickerDirection == 'next'){
@@ -858,15 +904,15 @@
 					});
 				}
 			}
-		}		
-		
+		}
+
 		/**
 		 * Sets all variables associated with the controls
-		 */		
+		 */
 		function setAutoControlsVars(){
 			// check if text or images should be used for controls
 			// check "start"
-			if(options.startImage != ''){
+			if(options.startImage !== ''){
 				startContent = options.startImage;
 				startType = 'image';
 			}else{
@@ -874,7 +920,7 @@
 				startType = 'text';
 			}
 			// check "stop"
-			if(options.stopImage != ''){
+			if(options.stopImage !== ''){
 				stopContent = options.stopImage;
 				stopType = 'image';
 			}else{
@@ -884,10 +930,10 @@
 			// show the controls
 			showAutoControls(startType, startContent, stopType, stopContent);
 		}
-		
+
 		/**
 		 * Handles hover events for auto shows
-		 */		
+		 */
 		function setAutoHover(){
 			// hover over the slider window
 			$outerWrapper.find('.bx-window').hover(function() {
@@ -900,10 +946,10 @@
 				}
 			});
 		}
-		
+
 		/**
 		 * Handles hover events for ticker mode
-		 */		
+		 */
 		function setTickerHover(){
 			// on hover stop the animation
 			$parent.hover(function() {
@@ -915,11 +961,11 @@
 					base.startTicker(false);
 				}
 			});
-		}		
-		
+		}
+
 		/**
 		 * Handles fade animation
-		 */		
+		 */
 		function setChildrenFade(){
 			// fade out any other child besides the current
 			$children.not(':eq('+currentSlide+')').fadeTo(options.speed, 0).css('zIndex', 98);
@@ -933,11 +979,11 @@
 				// perform the callback function
 				options.onAfterSlide(currentSlide, $children.length, $children.eq(currentSlide));
 			});
-		};
-				
+		}
+
 		/**
 		 * Makes slide active
-		 */		
+		 */
 		function makeSlideActive(number){
 			if(options.pagerType == 'full' && options.pager){
 				// remove all active classes
@@ -948,7 +994,7 @@
 				$('.bx-pager-current', $pager).html(currentSlide+1);
 			}
 		}
-				
+
 		/**
 		 * Displays next/prev controls
 		 *
@@ -956,7 +1002,7 @@
 		 * @param string nextContent if type='image', specify a filepath to the image. if type='text', specify text.
 		 * @param string prevType 'image', 'text'
 		 * @param string prevContent if type='image', specify a filepath to the image. if type='text', specify text.
-		 */		
+		 */
 		function showControls(nextType, nextContent, prevType, prevContent){
 			// create pager html elements
 			var $nextHtml = $('<a href="" class="bx-next"></a>');
@@ -996,19 +1042,19 @@
 				return false;
 			});
 		}
-		
+
 		/**
 		 * Displays the pager
 		 *
 		 * @param string type 'full', 'short'
-		 */		
+		 */
 		function showPager(type){
 			// sets up logic for finite multi slide shows
-			var pagerQty = $children.length;
+			var pagerQty = $children.length, i;
 			// if we are moving more than one at a time and we have a finite loop
 			if(options.moveSlideQty > 1){
 				// if slides create an odd number of pages
-				if($children.length % options.moveSlideQty != 0){
+				if($children.length % options.moveSlideQty !== 0){
 					// pagerQty = $children.length / options.moveSlideQty + 1;
 					pagerQty = Math.ceil($children.length / options.moveSlideQty);
 				// if slides create an even number of pages
@@ -1019,20 +1065,19 @@
 			var pagerString = '';
 			// check if custom build function was supplied
 			if(options.buildPager){
-				for(var i=0; i<pagerQty; i++){
+				for(i=0; i<pagerQty; i++){
 					pagerString += options.buildPager(i, $children.eq(i * options.moveSlideQty));
 				}
-				
 			// if not, use default pager
 			}else if(type == 'full'){
 				// build the full pager
-				for(var i=1; i<=pagerQty; i++){
+				for(i=1; i<=pagerQty; i++){
 					pagerString += '<a href="" class="pager-link pager-'+i+'">'+i+'</a>';
 				}
 			}else if(type == 'short') {
 				// build the short pager
 				pagerString = '<span class="bx-pager-current">'+(options.startingSlide+1)+'</span> '+options.pagerShortSeparator+' <span class="bx-pager-total">'+$children.length+'</span>';
-			}	
+			}
 			// check if user supplied a pager selector
 			if(options.pagerSelector){
 				$(options.pagerSelector).append(pagerString);
@@ -1063,15 +1108,15 @@
 				return false;
 			});
 		}
-				
+
 		/**
 		 * Displays captions
-		 */		
+		 */
 		function showCaptions(){
 			// get the title from each image
 		  var caption = $('img', $children.eq(currentSlide)).attr('title');
 			// if the caption exists
-			if(caption != ''){
+			if(caption !== ''){
 				// if user supplied a selector
 				if(options.captionsSelector){
 					$(options.captionsSelector).html(caption);
@@ -1084,10 +1129,10 @@
 					$(options.captionsSelector).html('&nbsp;');
 				}else{
 					$('.bx-captions', $outerWrapper).html('&nbsp;');
-				}				
+				}
 			}
 		}
-		
+
 		/**
 		 * Displays start/stop controls for auto and ticker mode
 		 *
@@ -1117,7 +1162,7 @@
 				$outerWrapper.append('<div class="bx-auto"></div>');
 				$('.bx-auto', $outerWrapper).html($autoControls);
 			}
-						
+
 			// click start control
 			$autoControls.click(function() {
 				if(options.ticker){
@@ -1135,17 +1180,16 @@
 				}
 				return false;
 			});
-			
 		}
-		
+
 		/**
 		 * Checks if show is in finite mode, and if slide is either first or last, then hides the respective control
-		 */		
+		 */
 		function checkEndControls(){
 			if(!options.infiniteLoop && options.hideControlOnEnd){
 				// check previous
 				if(currentSlide == firstSlide){
-					$('.bx-prev', $outerWrapper).hide();				
+					$('.bx-prev', $outerWrapper).hide();
 				}else{
 					$('.bx-prev', $outerWrapper).show();
 				}
@@ -1158,36 +1202,37 @@
 				}
 			}
 		}
-		
+
 		/**
 		 * Returns the left offset of the slide from the parent container
-		 */		
-		function getSlidePosition(number, side){			
+		 */
+		function getSlidePosition(number, side){
+			var position;
 			if(side == 'left'){
-				var position = $('.pager', $outerWrapper).eq(number).position().left;
+				position = $('.pager', $outerWrapper).eq(number).position().left;
 			}else if(side == 'top'){
-				var position = $('.pager', $outerWrapper).eq(number).position().top;
+				position = $('.pager', $outerWrapper).eq(number).position().top;
 			}
 			return position;
 		}
-		
+
 		/**
 		 * Returns the width of the wrapper
-		 */		
+		 */
 		function getWrapperWidth(){
 			var wrapperWidth = $firstChild.outerWidth() * options.displaySlideQty;
 			return wrapperWidth;
 		}
-		
+
 		/**
 		 * Returns the height of the wrapper
-		 */		
+		 */
 		function getWrapperHeight(){
 			// if displaying multiple slides, multiple wrapper width by number of slides to display
 			var wrapperHeight = $firstChild.outerHeight() * options.displaySlideQty;
 			return wrapperHeight;
 		}
-		
+
 		/**
 		 * Returns a sample of an arry and loops back on itself if the end of the array is reached
 		 *
@@ -1195,7 +1240,7 @@
 		 * @param int start array index sample will start
 		 * @param int length number of items in the sample
 		 * @param string direction 'forward', 'backward' direction the loop should travel in the array
-		 */		
+		 */
 		function getArraySample(array, start, length, direction){
 			// initialize empty array
 			var sample = [];
@@ -1209,7 +1254,7 @@
 				array.reverse();
 			}
 			// loop through original array until the length argument is met
-			while(loopLength > 0){				
+			while(loopLength > 0){
 				// loop through original array
 				$.each(array, function(index, val) {
 					// check if length has been met
@@ -1233,31 +1278,31 @@
 					// if length has been met, break loose
 					}else{
 						return false;
-					}			
-				});				
+					}
+				});
 			}
 			return sample;
 		}
-												
+
 		this.each(function(){
 			// make sure the element has children
 			if($(this).children().length > 0){
 				base.initShow();
 			}
 		});
-				
-		return this;						
-	}
-	
+
+		return this;
+	};
+
 	jQuery.fx.prototype.cur = function(){
-		if ( this.elem[this.prop] != null && (!this.elem.style || this.elem.style[this.prop] == null) ) {
+		if ( this.elem[this.prop] !== null && (!this.elem.style || this.elem.style[this.prop] === null) ) {
 			return this.elem[ this.prop ];
 		}
 
 		var r = parseFloat( jQuery.css( this.elem, this.prop ) );
 		// return r && r > -10000 ? r : 0;
 		return r;
-	}
+	};
 
-		
+
 })(jQuery);

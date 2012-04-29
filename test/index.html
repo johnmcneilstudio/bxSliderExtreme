@@ -23,15 +23,7 @@
 			position:relative;
 			width:100%;
 			height:440px;
-			background:#ff0099;
 			overflow:hidden;
-		}
-		#hero1-mask {
-			position:absolute;
-			width:1600px;
-			height:440px;
-			top:0px;
-			left:0px;
 		}
 		#hero1 h1.item {
 			position:relative;
@@ -55,19 +47,19 @@
 			margin:0px auto;
 			z-index:10;
 		}
-		#hero1 .bx-prev {
+		.bx-prev {
 			position:absolute;
 			bottom:10px;
 			left:0px;
 			z-index:100;
 		}
-		#hero1 .bx-next {
+		.bx-next {
 			position:absolute;
 			bottom:10px;
 			left:100px;
 			z-index:100;
 		}
-		#hero1 .bx-pager {
+		.bx-pager {
 			position:absolute;
 			display:block;
 			bottom:18px;
@@ -76,7 +68,7 @@
 			text-align:center;
 			z-index:999;
 		}
-		#hero1 .bx-pager > .pager-link {
+		.bx-pager > .pager-link {
 			position:relative;
 			display:inline-block;
 			text-indent:-9999px;
@@ -91,8 +83,8 @@
 			*line-height:0;
 			*overflow:hidden;
 		}
-		#hero1 .bx-pager > .pager-link:hover,
-		#hero1 .bx-pager > .pager-active {
+		.bx-pager > .pager-link:hover,
+		.bx-pager > .pager-active {
 			background:url('bxPager.png') no-repeat 0px -18px;
 		}
 	</style>
@@ -102,7 +94,6 @@
 <body>
 	<div id="container">
 		<section id="hero1">
-			<div id="hero1-mask">
 				<h1 class="item">
 					<div class="background" style="background-image:url(hero_bg_01.png);"></div>
 					<div class="content"><img src="hero_content_01.png"></div>
@@ -119,99 +110,51 @@
 					<div class="background" style="background-image:url(hero_bg_04.png);"></div>
 					<div class="content"><img src="hero_content_04.png"></div>
 				</h1>
-			</div>
 		</section>
 	</div>
 
 	<script src="jquery-1.7.1.min.js"></script>
 	<script src="jquery.easing.1.3.js"></script>
+	<script src="jquery.debouncedresize.js"></script>
 	<script src="../source/jquery.bxSliderIW.js"></script>
 	<script>
-	//---------------------------------------------------------------
-	/*
-	 * debouncedresize: special jQuery event that happens once after a window resize
-	 *
-	 * latest version and complete README available on Github:
-	 * https://github.com/louisremi/jquery-smartresize
-	 *
-	 * Copyright 2012 @louis_remi
-	 * Licensed under the MIT license.
-	 *
-	 * This saved you an hour of work? 
-	 * Send me music http://www.amazon.co.uk/wishlist/HNTU0468LQON
-	 */
-	(function($) {
-
-	var $event = $.event,
-		$special,
-		resizeTimeout;
-
-	$special = $event.special.debouncedresize = {
-		setup: function() {
-			$( this ).on( "resize", $special.handler );
-		},
-		teardown: function() {
-			$( this ).off( "resize", $special.handler );
-		},
-		handler: function( event, execAsap ) {
-			// Save the context
-			var context = this,
-				args = arguments,
-				dispatch = function() {
-					// set correct event type
-					event.type = "debouncedresize";
-					$event.dispatch.apply( context, args );
-				};
-
-			if ( resizeTimeout ) {
-				clearTimeout( resizeTimeout );
-			}
-
-			execAsap ?
-				dispatch() :
-				resizeTimeout = setTimeout( dispatch, $special.threshold );
-		},
-		threshold: 150
-	};
-
-	})(jQuery);
-	//---------------------------------------------------------------
-		var hero1 = $('#hero1-mask').bxSlider({
+		var hero1 = $('#hero1').bxSlider({
 			controls:true,
-			auto:true,
+			auto:false,
 			autoHover:true,
 			pause:9000,
 			pager:true,
 			infiniteLoop:false,
 			easing:'easeInOutQuint',
-			speed:1600
+			speed:1600,
+			infiniteWidth:true
 		});
-		function update(){
-			var windowWidth = $(window).width();
-			var maskWidth = 960;
-			var maskLeft = 0;
-			var itemWidth = 1600;
-			var speed = 600;
-			if(windowWidth > 960){
-				maskWidth = windowWidth;
-				maskLeft = -(windowWidth*(hero1.getCurrentSlide()+1));
-			}else{
-				maskLeft = -(maskWidth*(hero1.getCurrentSlide()+1));
-			}
-			if(windowWidth > itemWidth) {
-				itemWidth = windowWidth;
-			}
-			$('#hero1').animate({width:maskWidth}, speed, 'easeOutQuint');
-			$('#hero1').find('.bx-pager').animate({width:maskWidth}, speed, 'easeOutQuint');
-			$('#hero1').find('.bx-window').animate({'width':maskWidth}, speed, 'easeOutQuint');
-			$('#hero1').find('.bx-wrapper').animate({'width':maskWidth}, speed, 'easeOutQuint');
-			$('#hero1-mask').animate({'left':maskLeft}, speed, 'easeOutQuint');
-			$('#hero1').find('.item').animate({'width':maskWidth}, speed, 'easeOutQuint');
-		}
-		$(window).on('debouncedresize', function(event){
-			update();
-		});
-		update();
+		// function update(){
+		// 	var windowWidth = $(window).width();
+		// 	var maskWidth = 960;
+		// 	var maskLeft = 0;
+		// 	var itemWidth = 1600;
+		// 	var speed = 600;
+		// 	if(windowWidth > 960){
+		// 		maskWidth = windowWidth;
+		// 		maskLeft = -(windowWidth*(hero1.getCurrentSlide()+1));
+		// 	}else{
+		// 		maskLeft = -(maskWidth*(hero1.getCurrentSlide()+1));
+		// 	}
+		// 	if(windowWidth > itemWidth) {
+		// 		itemWidth = windowWidth;
+		// 	}
+		// 	$('#hero1').animate({width:maskWidth}, speed, 'easeOutQuint');
+		// 	$('#hero1').find('.bx-pager').animate({width:maskWidth}, speed, 'easeOutQuint');
+		// 	$('#hero1').find('.bx-window').animate({'width':maskWidth}, speed, 'easeOutQuint');
+		// 	$('#hero1').find('.bx-wrapper').animate({'width':maskWidth}, speed, 'easeOutQuint');
+		// 	$('#hero1-mask').animate({'left':maskLeft}, speed, 'easeOutQuint');
+		// 	$('#hero1').find('.item').animate({'width':maskWidth}, speed, 'easeOutQuint');
+		// }
+		// $(window).on('debouncedresize', function(event){
+		// 	update();
+		// });
+		// update();
 	</script>
 </body>
 </html>
