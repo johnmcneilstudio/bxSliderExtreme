@@ -343,7 +343,7 @@ options: true, false
 ## INFINITE WIDTH
 
 **infiniteWidth**  
-Make the carousel resize to the browsers width  
+Make the carousel resize to the browsers width. Requires [jquery.debouncedresize.js](https://github.com/louisremi/jquery-smartresize/blob/master/jquery.debouncedresize.js) if `infiniteWidth == true`. Get it here: [https://github.com/louisremi/jquery-smartresize](https://github.com/louisremi/jquery-smartresize)  
 ```js
 default: false
 options: true, false
