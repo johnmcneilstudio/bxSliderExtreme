@@ -18,8 +18,10 @@ Original documentation provided by: [http://bxslider.com/options](http://bxslide
 - **[Pager](#pager)**
 - **[Multiple display](#multiple-display)**
 - **[Ticker](#ticker)**
-- **[Public functions](#public-functions)**
+- **[Infinite Width](#infinite-width)**
+- **[Auto Height](#auto-height)**
 - **[Callbacks](#callbacks)**
+- **[Public functions](#public-functions)**
 
 ***
 
@@ -332,6 +334,72 @@ If true ticker will pause on mouseover
 ```js
 default: false
 options: true, false
+```
+
+[(back to top)](#table-of-contents)
+
+***
+
+## INFINITE WIDTH
+
+**infiniteWidth**  
+Make the carousel resize to the browsers width  
+```js
+default: false
+options: true, false
+```
+
+**minWidth**  
+The minimum width of the carousel  
+```js
+default: 960
+```
+
+**widthSpeed**  
+In ms, duration of time infinite width transitions will occupy  
+```js
+default: 400
+preferred: 600
+```
+
+**widthEasing**  
+Used with [jquery.easing.1.3.js](http://gsgd.co.uk/sandbox/jquery/easing/) - see [http://gsgd.co.uk/sandbox/jquery/easing/](http://gsgd.co.uk/sandbox/jquery/easing/) for available options  
+```js
+default: 'swing'
+preferred: 'easeOutQuint'
+```
+
+[(back to top)](#table-of-contents)
+
+***
+
+## AUTO HEIGHT
+
+**autoHeight**  
+Set the height of the carousel to the height of the current slide  
+```js
+default: false
+options: true, false
+```
+
+**minHeight**  
+The minimum height of the carousel. Must be set if `autoHeight == true`  
+```js
+default: 0
+```
+
+**heightSpeed**  
+In ms, duration of time height transitions will occupy  
+```js
+default: 1000
+preferred: 1200
+```
+
+**heightEasing**  
+Used with [jquery.easing.1.3.js](http://gsgd.co.uk/sandbox/jquery/easing/) - see [http://gsgd.co.uk/sandbox/jquery/easing/](http://gsgd.co.uk/sandbox/jquery/easing/) for available options  
+```js
+default: 'swing'
+preferred: 'easeInOutQuint'
 ```
 
 [(back to top)](#table-of-contents)
