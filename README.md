@@ -516,7 +516,15 @@ Reinitialize a slide show
 # Release Notes
 ### 3.1.1 (4/23/2012):
 - Forked from [jQuery bxSlider v3.1](https://github.com/psyrendust/bxslider).
-- foo
+- Added parameters for:
+	- `infiniteWidth`: Make the carousel resize to the browsers width.
+	- `minWidth`: The minimum width of the carousel.
+	- `widthSpeed`: In ms, duration of time infinite width transitions will occupy.
+	- `widthEasing`: Used with jquery.easing.1.3.js - see http://gsgd.co.uk/sandbox/jquery/easing/ for available options.
+	- `autoHeight`: Set the height of the carousel to the height of the current slide.
+	- `minHeight`: The minimum height of the carousel.
+	- `heightSpeed`: In ms, duration of time height transitions will occupy.
+	- `heightEasing`: Used with jquery.easing.1.3.js - see http://gsgd.co.uk/sandbox/jquery/easing/ for available options.
 
 ### v3.1:
 -  Fixed an issue where the *.bx-next* button would not hide if the *displaySlideQty* was greater than 1.
