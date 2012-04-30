@@ -19,20 +19,19 @@
 			position:relative;
 			min-width:960px;
 		}
-		#hero1 {
+		.hero {
 			position:relative;
 			width:100%;
 			height:440px;
 			overflow:hidden;
 		}
-		#hero1 h1.item {
+		.hero h1.item {
 			position:relative;
 			width:1600px;
-			height:440px;
 			margin:0px;
 			padding:0px;
 		}
-		#hero1 div.background {
+		.hero div.background {
 			position:absolute;
 			z-index:1;
 			width:100%;
@@ -40,52 +39,23 @@
 			background-position:top left;
 			background-repeat:repeat-x;
 		}
-		#hero1 div.content {
+		.hero div.content {
 			position:relative;
 			width:960px;
-			height:440px;
 			margin:0px auto;
 			z-index:10;
 		}
 		.bx-prev {
 			position:absolute;
-			bottom:10px;
+			top:10px;
 			left:0px;
 			z-index:100;
 		}
 		.bx-next {
 			position:absolute;
-			bottom:10px;
+			top:10px;
 			left:100px;
 			z-index:100;
-		}
-		.bx-pager {
-			position:absolute;
-			display:block;
-			bottom:18px;
-			width:100%;
-			height:18px;
-			text-align:center;
-			z-index:999;
-		}
-		.bx-pager > .pager-link {
-			position:relative;
-			display:inline-block;
-			text-indent:-9999px;
-			direction:ltr;
-			width:18px;
-			height:18px;
-			margin:0px 6px;
-			overflow:hidden;
-			background:url('bxPager.png') no-repeat 0px 0px;
-			*text-indent:0;
-			*font-size:0;
-			*line-height:0;
-			*overflow:hidden;
-		}
-		.bx-pager > .pager-link:hover,
-		.bx-pager > .pager-active {
-			background:url('bxPager.png') no-repeat 0px -18px;
 		}
 	</style>
 	
@@ -93,14 +63,41 @@
 </head>
 <body>
 	<div id="container">
-		<section id="hero1">
+		<section id="hero1" class="hero">
 				<h1 class="item">
 					<div class="background" style="background-image:url(hero_bg_01.png);"></div>
 					<div class="content"><img src="hero_content_01.png"></div>
 				</h1>
 				<h1 class="item">
 					<div class="background" style="background-image:url(hero_bg_02.png);"></div>
-					<div class="content"><img src="hero_content_02.png"></div>
+					<div class="content">
+						<div><img src="hero_content_02.png"></div>
+						<div><img src="hero_content_03.png"></div>
+						<div><img src="hero_content_04.png"></div>
+					</div>
+				</h1>
+				<h1 class="item">
+					<div class="background" style="background-image:url(hero_bg_03.png);"></div>
+					<div class="content"><img src="hero_content_03.png"></div>
+				</h1>
+				<h1 class="item">
+					<div class="background" style="background-image:url(hero_bg_04.png);"></div>
+					<div class="content"><img src="hero_content_04.png"></div>
+				</h1>
+		</section>
+		<br/><br/><br/>
+		<section id="hero2" class="hero">
+				<h1 class="item">
+					<div class="background" style="background-image:url(hero_bg_01.png);"></div>
+					<div class="content"><img src="hero_content_01.png"></div>
+				</h1>
+				<h1 class="item">
+					<div class="background" style="background-image:url(hero_bg_02.png);"></div>
+					<div class="content">
+						<div><img src="hero_content_02.png"></div>
+						<div><img src="hero_content_03.png"></div>
+						<div><img src="hero_content_04.png"></div>
+					</div>
 				</h1>
 				<h1 class="item">
 					<div class="background" style="background-image:url(hero_bg_03.png);"></div>
@@ -123,38 +120,35 @@
 			auto:false,
 			autoHover:true,
 			pause:9000,
-			pager:true,
 			infiniteLoop:false,
 			easing:'easeInOutQuint',
 			speed:1600,
-			infiniteWidth:true
+			infiniteWidth:true,
+			autoHeight:true,
+			minWidth:960,
+			minHeight:440,
+			heightSpeed:1200,
+			widthSpeed:600,
+			heightEasing:'easeInOutQuint',
+			widthEasing:'easeOutQuint'
 		});
-		// function update(){
-		// 	var windowWidth = $(window).width();
-		// 	var maskWidth = 960;
-		// 	var maskLeft = 0;
-		// 	var itemWidth = 1600;
-		// 	var speed = 600;
-		// 	if(windowWidth > 960){
-		// 		maskWidth = windowWidth;
-		// 		maskLeft = -(windowWidth*(hero1.getCurrentSlide()+1));
-		// 	}else{
-		// 		maskLeft = -(maskWidth*(hero1.getCurrentSlide()+1));
-		// 	}
-		// 	if(windowWidth > itemWidth) {
-		// 		itemWidth = windowWidth;
-		// 	}
-		// 	$('#hero1').animate({width:maskWidth}, speed, 'easeOutQuint');
-		// 	$('#hero1').find('.bx-pager').animate({width:maskWidth}, speed, 'easeOutQuint');
-		// 	$('#hero1').find('.bx-window').animate({'width':maskWidth}, speed, 'easeOutQuint');
-		// 	$('#hero1').find('.bx-wrapper').animate({'width':maskWidth}, speed, 'easeOutQuint');
-		// 	$('#hero1-mask').animate({'left':maskLeft}, speed, 'easeOutQuint');
-		// 	$('#hero1').find('.item').animate({'width':maskWidth}, speed, 'easeOutQuint');
-		// }
-		// $(window).on('debouncedresize', function(event){
-		// 	update();
-		// });
-		// update();
+		var hero2 = $('#hero2').bxSlider({
+			controls:true,
+			auto:false,
+			autoHover:true,
+			pause:9000,
+			infiniteLoop:false,
+			easing:'easeInOutQuint',
+			speed:1600,
+			infiniteWidth:true,
+			autoHeight:true,
+			minWidth:960,
+			minHeight:440,
+			heightSpeed:1200,
+			widthSpeed:600,
+			heightEasing:'easeInOutQuint',
+			widthEasing:'easeOutQuint'
+		});
 	</script>
 </body>
 </html>

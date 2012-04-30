@@ -69,7 +69,13 @@
 			buildPager: null,					// function(slideIndex, slideHtmlObject){ return string; } - advanced use only! see the tutorial here: http://bxslider.com/custom-pager
 			infiniteWidth: false,				// true, false - if true make the carousel infinite width
 			resizeItems: [],					// array - an array of jQuery objects that need to be resized for infinite width
-			minWidth: 960						// integer - the minimum width of the carousel
+			minWidth: 960,						// integer - the minimum width of the carousel
+			minHeight: 0,						// integer - the minimum height of the carousel
+			autoHeight: false,					// true, false - if true change the height of the carousel to the height of the current slide
+			heightSpeed: 1000,					// integer - in ms, duration of time height transitions will occupy
+			widthSpeed: 400,					// integer - in ms, duration of time infinite width transitions will occupy
+			heightEasing: 'swing',				// used with jquery.easing.1.3.js - see http://gsgd.co.uk/sandbox/jquery/easing/ for available options
+			widthEasing: 'swing'				// used with jquery.easing.1.3.js - see http://gsgd.co.uk/sandbox/jquery/easing/ for available options
 		};
 
 		options = $.extend(defaults, options);
@@ -85,6 +91,7 @@
 		var $firstChild = '';
 		var childrenWidth = '';
 		var childrenOuterWidth = '';
+		var childrenLength = 0;
 		var wrapperWidth = '';
 		var wrapperHeight = '';
 		var $pager = '';
@@ -106,9 +113,10 @@
 		var tickerLeft = 0;
 		var tickerTop = 0;
 		var isWorking = false;
+		var minWidth, minHeight, autoHeight, heightSpeed, widthSpeed, heightEasing, widthEasing;
 
 		var firstSlide = 0;
-		var lastSlide = $children.length - 1;
+		var lastSlide = childrenLength - 1;
 
 
 		// PUBLIC FUNCTIONS
@@ -121,7 +129,9 @@
 				isWorking = true;
 				// set current slide to argument
 				currentSlide = number;
-				options.onBeforeSlide(currentSlide, $children.length, $children.eq(currentSlide));
+				var $currentSlide = $children.eq(currentSlide);
+				onBeforeSlideAutoHeight($currentSlide);
+				options.onBeforeSlide(currentSlide, childrenLength, $currentSlide);
 				// check if stopAuto argument is supplied
 				if(typeof(stopAuto) == 'undefined'){
 					stopAuto = true;
@@ -135,25 +145,27 @@
 				slide = number;
 				// check for first slide callback
 				if(slide == firstSlide){
-					options.onFirstSlide(currentSlide, $children.length, $children.eq(currentSlide));
+					options.onFirstSlide(currentSlide, childrenLength, $currentSlide);
 				}
 				// check for last slide callback
 				if(slide == lastSlide){
-					options.onLastSlide(currentSlide, $children.length, $children.eq(currentSlide));
+					options.onLastSlide(currentSlide, childrenLength, $currentSlide);
 				}
 				// horizontal
 				if(options.mode == 'horizontal'){
 					$parent.animate({'left': '-'+getSlidePosition(slide, 'left')+'px'}, options.speed, options.easing, function(){
 						isWorking = false;
 						// perform the callback function
-						options.onAfterSlide(currentSlide, $children.length, $children.eq(currentSlide));
+						onAfterSlideAutoHeight($currentSlide);
+						options.onAfterSlide(currentSlide, childrenLength, $currentSlide);
 					});
 				// vertical
 				}else if(options.mode == 'vertical'){
 					$parent.animate({'top': '-'+getSlidePosition(slide, 'top')+'px'}, options.speed, options.easing, function(){
 						isWorking = false;
 						// perform the callback function
-						options.onAfterSlide(currentSlide, $children.length, $children.eq(currentSlide));
+						onAfterSlideAutoHeight($currentSlide);
+						options.onAfterSlide(currentSlide, childrenLength, $currentSlide);
 					});
 				// fade
 				}else if(options.mode == 'fade'){
@@ -196,7 +208,7 @@
 					if(currentSlide <= lastSlide){
 						checkEndControls();
 						// next slide callback
-						options.onNextSlide(currentSlide, $children.length, $children.eq(currentSlide));
+						options.onNextSlide(currentSlide, childrenLength, $children.eq(currentSlide));
 						// move to appropriate slide
 						base.goToSlide(currentSlide);
 					}else{
@@ -210,13 +222,15 @@
 					currentSlide = (currentSlide + options.moveSlideQty);
 					// if current slide has looped on itself
 					if(currentSlide > lastSlide){
-						currentSlide = currentSlide % $children.length;
+						currentSlide = currentSlide % childrenLength;
 						slideLoop = true;
 					}
+					var $currentSlide = $children.eq(currentSlide);
+					onBeforeSlideAutoHeight($currentSlide);
 					// next slide callback
-					options.onNextSlide(currentSlide, $children.length, $children.eq(currentSlide));
+					options.onNextSlide(currentSlide, childrenLength, $currentSlide);
 					// slide before callback
-					options.onBeforeSlide(currentSlide, $children.length, $children.eq(currentSlide));
+					options.onBeforeSlide(currentSlide, childrenLength, $currentSlide);
 					if(options.mode == 'horizontal'){
 						// get the new 'left' property for $parent
 						var parentLeft = (options.moveSlideQty * childrenOuterWidth);
@@ -228,7 +242,8 @@
 								$parent.css('left', '-'+getSlidePosition(currentSlide, 'left')+'px');
 							}
 							// perform the callback function
-							options.onAfterSlide(currentSlide, $children.length, $children.eq(currentSlide));
+							onAfterSlideAutoHeight($currentSlide);
+							options.onAfterSlide(currentSlide, childrenLength, $currentSlide);
 						});
 					}else if(options.mode == 'vertical'){
 						// get the new 'left' property for $parent
@@ -241,7 +256,8 @@
 								$parent.css('top', '-'+getSlidePosition(currentSlide, 'top')+'px');
 							}
 							// perform the callback function
-							options.onAfterSlide(currentSlide, $children.length, $children.eq(currentSlide));
+							onAfterSlideAutoHeight($currentSlide);
+							options.onAfterSlide(currentSlide, childrenLength, $currentSlide);
 						});
 					}else if(options.mode == 'fade'){
 						setChildrenFade();
@@ -289,7 +305,7 @@
 					}
 					checkEndControls();
 					// next slide callback
-					options.onPrevSlide(currentSlide, $children.length, $children.eq(currentSlide));
+					options.onPrevSlide(currentSlide, childrenLength, $children.eq(currentSlide));
 					// move to appropriate slide
 					base.goToSlide(currentSlide);
 				}
@@ -300,18 +316,20 @@
 					currentSlide = (currentSlide - (options.moveSlideQty));
 					// if current slide has looped on itself
 					if(currentSlide < 0){
-						negativeOffset = (currentSlide % $children.length);
+						negativeOffset = (currentSlide % childrenLength);
 						if(negativeOffset === 0){
 							currentSlide = 0;
 						}else{
-							currentSlide = ($children.length) + negativeOffset;
+							currentSlide = (childrenLength) + negativeOffset;
 						}
 						slideLoop = true;
 					}
+					var $currentSlide = $children.eq(currentSlide);
+					onBeforeSlideAutoHeight($currentSlide);
 					// next slide callback
-					options.onPrevSlide(currentSlide, $children.length, $children.eq(currentSlide));
+					options.onPrevSlide(currentSlide, childrenLength, $currentSlide);
 					// slide before callback
-					options.onBeforeSlide(currentSlide, $children.length, $children.eq(currentSlide));
+					options.onBeforeSlide(currentSlide, childrenLength, $currentSlide);
 					if(options.mode == 'horizontal'){
 						// get the new 'left' property for $parent
 						var parentLeft = (options.moveSlideQty * childrenOuterWidth);
@@ -323,7 +341,8 @@
 								$parent.css('left', '-'+getSlidePosition(currentSlide, 'left')+'px');
 							}
 							// perform the callback function
-							options.onAfterSlide(currentSlide, $children.length, $children.eq(currentSlide));
+							onAfterSlideAutoHeight($currentSlide);
+							options.onAfterSlide(currentSlide, childrenLength, $currentSlide);
 						});
 					}else if(options.mode == 'vertical'){
 						// get the new 'left' property for $parent
@@ -336,7 +355,8 @@
 								$parent.css('top', '-'+getSlidePosition(currentSlide, 'top')+'px');
 							}
 							// perform the callback function
-							options.onAfterSlide(currentSlide, $children.length, $children.eq(currentSlide));
+							onAfterSlideAutoHeight($currentSlide);
+							options.onAfterSlide(currentSlide, childrenLength, $currentSlide);
 						});
 					}else if(options.mode == 'fade'){
 						setChildrenFade();
@@ -386,7 +406,7 @@
 		 * Get the total slide count
 		 */
 		this.getSlideCount = function(){
-			return $children.length;
+			return childrenLength;
 		};
 
 		/**
@@ -499,6 +519,7 @@
 			childrenMaxWidth = 0;
 			childrenOuterWidth = $firstChild.outerWidth();
 			childrenMaxHeight = 0;
+			childrenLength = $children.length;
 			wrapperWidth = getWrapperWidth();
 			wrapperHeight = getWrapperHeight();
 			isWorking = false;
@@ -518,6 +539,13 @@
 			origShowHeight = 0;
 			tickerLeft = 0;
 			tickerTop = 0;
+			minWidth = options.minWidth;
+			minHeight = options.minHeight;
+			autoHeight = options.autoHeight;
+			heightSpeed = options.heightSpeed;
+			widthSpeed = options.widthSpeed;
+			heightEasing = options.heightEasing;
+			widthEasing = options.widthEasing;
 
 			firstSlide = 0;
 			lastSlide = $children.length - 1;
@@ -534,7 +562,7 @@
 
 			// get random slide number
 			if(options.randomStart){
-				var randomNumber = Math.floor(Math.random() * $children.length);
+				var randomNumber = Math.floor(Math.random() * childrenLength);
 				currentSlide = randomNumber;
 				origLeft = childrenOuterWidth * (options.moveSlideQty + randomNumber);
 				origTop = childrenMaxHeight * (options.moveSlideQty + randomNumber);
@@ -608,9 +636,17 @@
 				});
 				updateWidth(0);
 			}
+
+			// check for minHeight
+			if(autoHeight && minHeight === 0){
+				throw "Requires minHeight to be set if autoHeight=true";
+			}
+
 			$parent.css('opacity', 1);
 			// perform the callback function
-			options.onAfterSlide(currentSlide, $children.length, $children.eq(currentSlide));
+			var $currentSlide = $children.eq(currentSlide);
+			onAfterSlideAutoHeight($currentSlide);
+			options.onAfterSlide(currentSlide, childrenLength, $currentSlide);
 		};
 
 		/**
@@ -645,10 +681,10 @@
 		 */
 		function updateWidth(speedOverride){
 			var windowWidth = $(window).width();
-			var maskWidth = options.minWidth;
+			var maskWidth = minWidth;
 			var maskLeft = 0;
 			var itemWidth = 1600;
-			var speed = (speedOverride===0)?speedOverride:600
+			var speed = (speedOverride===0)?speedOverride:widthSpeed;
 			if(windowWidth > maskWidth){
 				maskWidth = windowWidth;
 				maskLeft = -(windowWidth*(base.getCurrentSlide()+1));
@@ -658,11 +694,23 @@
 			if(windowWidth > itemWidth) {
 				itemWidth = windowWidth;
 			}
-			$outerWrapper.animate({width:maskWidth}, speed, 'easeOutQuint');
-			$pager.animate({width:maskWidth}, speed, 'easeOutQuint');
-			$window.animate({width:maskWidth}, speed, 'easeOutQuint');
-			$parent.animate({left:maskLeft}, speed, 'easeOutQuint');
-			$allChildren.animate({width:maskWidth}, speed, 'easeOutQuint');
+			$outerWrapper.animate({width:maskWidth}, speed, widthEasing);
+			if($pager) $pager.animate({width:maskWidth}, speed, widthEasing);
+			$window.animate({width:maskWidth}, speed, widthEasing);
+			$parent.animate({left:maskLeft}, speed, widthEasing);
+			$allChildren.animate({width:maskWidth}, speed, widthEasing);
+		}
+		function onBeforeSlideAutoHeight(currentSlideHtmlObject){
+			currentHeight = $(currentSlideHtmlObject).outerHeight();
+			if(currentHeight <= minHeight){
+				$parent.animate({height:minHeight}, heightSpeed, heightEasing);
+			}
+		}
+		function onAfterSlideAutoHeight(currentSlideHtmlObject){
+			currentHeight = $(currentSlideHtmlObject).outerHeight();
+			if(currentHeight > minHeight){
+				$parent.animate({height:currentHeight}, heightSpeed, heightEasing);
+			}
 		}
 
 		/**
@@ -746,9 +794,9 @@
 				});
 
 				// total number of slides to be hidden after the window
-				var totalNumberAfterWindow = ($children.length + options.moveSlideQty) - 1;
+				var totalNumberAfterWindow = (childrenLength + options.moveSlideQty) - 1;
 				// number of original slides hidden after the window
-				var pagerExcess = $children.length - options.displaySlideQty;
+				var pagerExcess = childrenLength - options.displaySlideQty;
 				// number of slides to append to the original hidden slides
 				var numberToAppend = totalNumberAfterWindow - pagerExcess;
 				// get the sample of extra slides to append
@@ -804,7 +852,7 @@
 							currentSlide += options.moveSlideQty;
 							// if currentSlide has exceeded total number
 							if(currentSlide > lastSlide){
-								currentSlide = currentSlide % $children.length;
+								currentSlide = currentSlide % childrenLength;
 							}
 							base.goToSlide(currentSlide, false);
 						}, options.pause);
@@ -813,11 +861,11 @@
 							currentSlide -= options.moveSlideQty;
 							// if currentSlide is smaller than zero
 							if(currentSlide < 0){
-								negativeOffset = (currentSlide % $children.length);
+								negativeOffset = (currentSlide % childrenLength);
 								if(negativeOffset === 0){
 									currentSlide = 0;
 								}else{
-									currentSlide = ($children.length) + negativeOffset;
+									currentSlide = childrenLength + negativeOffset;
 								}
 							}
 							base.goToSlide(currentSlide, false);
@@ -977,7 +1025,9 @@
 					$children.eq(currentSlide).get(0).style.removeAttribute('filter');
 				}
 				// perform the callback function
-				options.onAfterSlide(currentSlide, $children.length, $children.eq(currentSlide));
+				var $currentSlide = $children.eq(currentSlide);
+				onAfterSlideAutoHeight($currentSlide);
+				options.onAfterSlide(currentSlide, childrenLength, $currentSlide);
 			});
 		}
 
@@ -1050,16 +1100,16 @@
 		 */
 		function showPager(type){
 			// sets up logic for finite multi slide shows
-			var pagerQty = $children.length, i;
+			var pagerQty = childrenLength, i;
 			// if we are moving more than one at a time and we have a finite loop
 			if(options.moveSlideQty > 1){
 				// if slides create an odd number of pages
-				if($children.length % options.moveSlideQty !== 0){
-					// pagerQty = $children.length / options.moveSlideQty + 1;
-					pagerQty = Math.ceil($children.length / options.moveSlideQty);
+				if(childrenLength % options.moveSlideQty !== 0){
+					// pagerQty = childrenLength / options.moveSlideQty + 1;
+					pagerQty = Math.ceil(childrenLength / options.moveSlideQty);
 				// if slides create an even number of pages
 				}else{
-					pagerQty = $children.length / options.moveSlideQty;
+					pagerQty = childrenLength / options.moveSlideQty;
 				}
 			}
 			var pagerString = '';
@@ -1076,7 +1126,7 @@
 				}
 			}else if(type == 'short') {
 				// build the short pager
-				pagerString = '<span class="bx-pager-current">'+(options.startingSlide+1)+'</span> '+options.pagerShortSeparator+' <span class="bx-pager-total">'+$children.length+'</span>';
+				pagerString = '<span class="bx-pager-current">'+(options.startingSlide+1)+'</span> '+options.pagerShortSeparator+' <span class="bx-pager-total">'+childrenLength+'</span>';
 			}
 			// check if user supplied a pager selector
 			if(options.pagerSelector){
