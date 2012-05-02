@@ -526,6 +526,8 @@ Reinitialize a slide show
 	- `minHeight`: The minimum height of the carousel.
 	- `heightSpeed`: In ms, duration of time height transitions will occupy.
 	- `heightEasing`: Used with jquery.easing.1.3.js - see http://gsgd.co.uk/sandbox/jquery/easing/ for available options.
+- Fixed an issue that caused the carousel to delay it's slide animation if autoHeight was set to true.
+- Fixed a major bug where calling $.slideDown() would cause jQuery to break in IE.
 
 ### v3.1:
 -  Fixed an issue where the *.bx-next* button would not hide if the *displaySlideQty* was greater than 1.
