@@ -130,7 +130,7 @@
 				// set current slide to argument
 				currentSlide = number;
 				var $currentSlide = $children.eq(currentSlide);
-				// onBeforeSlideAutoHeight($currentSlide);
+				onBeforeSlideAutoHeight($currentSlide);
 				options.onBeforeSlide(currentSlide, childrenLength, $currentSlide);
 				// check if stopAuto argument is supplied
 				if(typeof(stopAuto) == 'undefined'){
@@ -156,7 +156,7 @@
 					$parent.animate({'left': '-'+getSlidePosition(slide, 'left')+'px'}, options.speed, options.easing, function(){
 						isWorking = false;
 						// perform the callback function
-						// onAfterSlideAutoHeight($currentSlide);
+						onAfterSlideAutoHeight($currentSlide);
 						options.onAfterSlide(currentSlide, childrenLength, $currentSlide);
 					});
 				// vertical
@@ -164,7 +164,7 @@
 					$parent.animate({'top': '-'+getSlidePosition(slide, 'top')+'px'}, options.speed, options.easing, function(){
 						isWorking = false;
 						// perform the callback function
-						// onAfterSlideAutoHeight($currentSlide);
+						onAfterSlideAutoHeight($currentSlide);
 						options.onAfterSlide(currentSlide, childrenLength, $currentSlide);
 					});
 				// fade
@@ -701,15 +701,20 @@
 			$allChildren.animate({width:maskWidth}, speed, widthEasing);
 		}
 		function onBeforeSlideAutoHeight(currentSlideHtmlObject){
-			currentHeight = $(currentSlideHtmlObject).outerHeight();
-			if(currentHeight <= minHeight){
+			if(!autoHeight) return;
+			var currHeight = $parent.outerHeight();
+			var newHeight = $(currentSlideHtmlObject).outerHeight();
+			if(currHeight!=newHeight && newHeight <= minHeight){
+				isWorking = true;
 				$parent.animate({height:minHeight}, heightSpeed, heightEasing);
 			}
 		}
 		function onAfterSlideAutoHeight(currentSlideHtmlObject){
-			currentHeight = $(currentSlideHtmlObject).outerHeight();
-			if(currentHeight > minHeight){
-				$parent.animate({height:currentHeight}, heightSpeed, heightEasing);
+			if(!autoHeight) return;
+			var currHeight = $parent.outerHeight();
+			var newHeight = $(currentSlideHtmlObject).outerHeight();
+			if(currHeight!=newHeight && newHeight > minHeight){
+				$parent.animate({height:newHeight}, heightSpeed, heightEasing);
 			}
 		}
 
