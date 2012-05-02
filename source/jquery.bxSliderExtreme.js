@@ -1,9 +1,9 @@
 /*!
- * jQuery bxSliderIW v3.1.1
+ * jQuery bxSliderExtreme v1.0
  * https://github.com/psyrendust/bxsliderIW
  * Copyright 2012, Larry Gordon
  *
- * bxSliderIW is a fork of jQuery bxSlider
+ * bxSliderExtreme is a fork of jQuery bxSlider
  * Copyright 2011, Steven Wanderski
  * http://bxcreative.com
  *
@@ -15,7 +15,7 @@
 
 (function($){
 
-	$.fn.bxSlider = function(options){
+	$.fn.bxSliderExtreme = function(options){
 
 		var defaults = {
 			mode: 'horizontal',					// 'horizontal', 'vertical', 'fade'
