@@ -1,5 +1,5 @@
 /*!
- * jQuery bxSliderExtreme v1.0
+ * jQuery bxSliderExtreme v3.1.1
  * https://github.com/psyrendust/bxsliderIW
  * Copyright 2012, Larry Gordon
  *

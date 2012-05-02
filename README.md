@@ -1,7 +1,7 @@
-# jQuery bxSliderIW v3.1.1
+# jQuery bxSliderExtreme v3.1.1
   
 # Description
-This is a fork of [jQuery bxSlider v3.1](https://github.com/psyrendust/bxslider) that adds an Infinite Width capability to the carousel.
+This is a fork of [jQuery bxSlider v3.1](https://github.com/psyrendust/bxslider) that adds an Infinite Width and Auto Height capabilities to the carousel.
 [jQuery bxSlider v3.1](https://github.com/psyrendust/bxslider) is a fork of the original [bxSlider v3.0](https://github.com/wandoledzep/bxslider) library by [Steven Wanderski](https://github.com/wandoledzep).
 
 # Table of Contents
@@ -516,6 +516,7 @@ Reinitialize a slide show
 # Release Notes
 ### 3.1.1 (4/23/2012):
 - Forked from [jQuery bxSlider v3.1](https://github.com/psyrendust/bxslider).
+- Changed name to bxSliderExtreme.
 - Added parameters for:
 	- `infiniteWidth`: Make the carousel resize to the browsers width.
 	- `minWidth`: The minimum width of the carousel.
