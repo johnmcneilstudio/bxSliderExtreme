@@ -130,7 +130,7 @@
 				// set current slide to argument
 				currentSlide = number;
 				var $currentSlide = $children.eq(currentSlide);
-				onBeforeSlideAutoHeight($currentSlide);
+				// onBeforeSlideAutoHeight($currentSlide);
 				options.onBeforeSlide(currentSlide, childrenLength, $currentSlide);
 				// check if stopAuto argument is supplied
 				if(typeof(stopAuto) == 'undefined'){
@@ -156,7 +156,7 @@
 					$parent.animate({'left': '-'+getSlidePosition(slide, 'left')+'px'}, options.speed, options.easing, function(){
 						isWorking = false;
 						// perform the callback function
-						onAfterSlideAutoHeight($currentSlide);
+						// onAfterSlideAutoHeight($currentSlide);
 						options.onAfterSlide(currentSlide, childrenLength, $currentSlide);
 					});
 				// vertical
@@ -164,7 +164,7 @@
 					$parent.animate({'top': '-'+getSlidePosition(slide, 'top')+'px'}, options.speed, options.easing, function(){
 						isWorking = false;
 						// perform the callback function
-						onAfterSlideAutoHeight($currentSlide);
+						// onAfterSlideAutoHeight($currentSlide);
 						options.onAfterSlide(currentSlide, childrenLength, $currentSlide);
 					});
 				// fade
@@ -1343,16 +1343,5 @@
 
 		return this;
 	};
-
-	jQuery.fx.prototype.cur = function(){
-		if ( this.elem[this.prop] !== null && (!this.elem.style || this.elem.style[this.prop] === null) ) {
-			return this.elem[ this.prop ];
-		}
-
-		var r = parseFloat( jQuery.css( this.elem, this.prop ) );
-		// return r && r > -10000 ? r : 0;
-		return r;
-	};
-
 
 })(jQuery);
