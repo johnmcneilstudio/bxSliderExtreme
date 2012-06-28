@@ -564,12 +564,12 @@
 			if(options.randomStart){
 				var randomNumber = Math.floor(Math.random() * childrenLength);
 				currentSlide = randomNumber;
-				origLeft = childrenOuterWidth * (options.moveSlideQty + randomNumber);
+				origLeft = childrenOuterWidth * randomNumber;
 				origTop = childrenMaxHeight * (options.moveSlideQty + randomNumber);
 			// start show at specific slide
 			}else{
 				currentSlide = options.startingSlide;
-				origLeft = childrenOuterWidth * (options.moveSlideQty + options.startingSlide);
+				origLeft = childrenOuterWidth * options.startingSlide;
 				origTop = childrenMaxHeight * (options.moveSlideQty + options.startingSlide);
 			}
 
